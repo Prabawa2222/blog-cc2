@@ -6,6 +6,7 @@ import { client } from "@/lib/contentful"; // Your Contentful client
 import Link from "next/link";
 import Image from "next/image";
 import Loading from "@/components/Loading";
+import { SkeletonAllPost } from "@/components/Skeleton";
 
 interface Post {
   sys: {
@@ -52,8 +53,6 @@ const AllPostPage = () => {
     const fetchPostsAndCategories = async () => {
       try {
         setLoading(true);
-
-        // Fetch posts with pagination
         const postsData = await client.getEntries({
           content_type: "blogspot",
           select: [
@@ -62,19 +61,17 @@ const AllPostPage = () => {
             "fields.image",
             "fields.category",
           ],
-          limit: 10, // Number of posts per page
-          skip: (parseInt(page as string) - 1) * 10, // Skip based on the current page
+          limit: 10,
+          skip: (parseInt(page as string) - 1) * 10,
         });
 
-        // Fetch categories
         const categoriesData = await client.getEntries({
-          content_type: "category", // Assuming 'category' is the content type for categories
+          content_type: "category",
           select: ["fields.name", "fields.slug"],
         });
 
-        // Calculate total pages based on the total number of posts
         const totalPosts = postsData.total;
-        const pages = Math.ceil(totalPosts / 10); // Assuming 10 posts per page
+        const pages = Math.ceil(totalPosts / 10);
         setTotalPages(pages);
 
         setPosts(postsData.items);
@@ -97,7 +94,11 @@ const AllPostPage = () => {
   };
 
   if (loading) {
-    return <Loading />;
+    return (
+      <div className="mx-auto pt-48 px-12 flex justify-between relative">
+        <SkeletonAllPost />
+      </div>
+    );
   }
 
   if (error) {
@@ -105,10 +106,11 @@ const AllPostPage = () => {
   }
 
   return (
-    <div className="max-w-6xl mx-auto p-6 flex min-h-screen">
-      {/* Left column - Posts */}
-      <div className="w-2/3 pr-6">
-        <h1 className="text-3xl font-bold text-gray-800">All Posts</h1>
+    <div className="mx-auto pt-48 px-12 flex justify-between relative">
+      <div className="w-2/3 pr-2 flex-1">
+        <h1 className="text-3xl font-bold text-gray-800 border-2 border-black rounded-full py-1 px-4 w-fit ">
+          All Posts
+        </h1>
         <ul className="mt-6">
           {posts.map((post) => (
             <li key={post.sys.id} className="text-xl text-gray-700 mb-4">
@@ -118,8 +120,8 @@ const AllPostPage = () => {
                     <Image
                       src={`https:${post.fields.image.fields.file.url}`}
                       alt={post.fields.title}
-                      width={128} // 128px wide
-                      height={128} // 128px high
+                      width={128}
+                      height={128}
                       className="rounded-lg object-cover"
                     />
                   </div>
@@ -131,8 +133,7 @@ const AllPostPage = () => {
                   >
                     {post.fields.title}
                   </a>
-                  <p className="text-sm text-gray-500 mt-1">
-                    Category:{" "}
+                  <p className="text-base text-gray-500 mt-1">
                     <Link
                       href={`/category/${post.fields.category.fields.slug}`}
                       className="hover:text-blue-600"
@@ -145,13 +146,11 @@ const AllPostPage = () => {
             </li>
           ))}
         </ul>
-
-        {/* Pagination Controls */}
         <div className="mt-6 flex justify-between">
           <button
             disabled={parseInt(page as string) <= 1}
             onClick={() => handlePageChange(parseInt(page as string) - 1)}
-            className="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50"
+            className="px-4 py-2 bg-black text-white rounded disabled:opacity-50"
           >
             Previous
           </button>
@@ -161,15 +160,15 @@ const AllPostPage = () => {
           <button
             disabled={parseInt(page as string) >= totalPages}
             onClick={() => handlePageChange(parseInt(page as string) + 1)}
-            className="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50"
+            className="px-4 py-2 bg-black text-white rounded disabled:opacity-50"
           >
             Next
           </button>
         </div>
       </div>
 
-      {/* Right column - Categories */}
-      <div className="w-1/3">
+      <div className="w-1 bg-gray-100 mx-4 h-screen" />
+      <div className="w-1/4">
         <h2 className="text-2xl font-semibold text-gray-800 mb-6">
           Categories
         </h2>

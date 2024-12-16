@@ -35,7 +35,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="bg-transparent p-5 flex items-center justify-between">
+    <div className="fixed w-full bg-white shadow-md p-5 flex items-center justify-between z-50">
       <Link href="/">
         <Image
           src={"/svg/logo_now_think.svg"}
@@ -49,14 +49,16 @@ const Navbar = () => {
 
       <div className="flex items-center gap-4 lg:hidden">
         <button onClick={toggleMenu} className="text-white text-2xl">
-          &#9776; {/* Hamburger menu icon */}
+          &#9776;
         </button>
       </div>
 
       <div
         className={`${
-          searchVisible ? "bg-white border-2 border-black" : "bg-black p-1"
-        } flex items-center py-2 px-10 rounded-full w-fit transition-all duration-500`}
+          searchVisible
+            ? "bg-white justify-between border-2 border-black py-2 px-16"
+            : "bg-black py-2 px-10"
+        } flex items-center  rounded-full w-fit transition-all duration-500`}
       >
         {linksVisible && !menuOpen && (
           <div
@@ -65,19 +67,19 @@ const Navbar = () => {
             } transition-opacity duration-1000 flex items-center gap-4 lg:flex`}
           >
             <Link
-              className="font-DmMonoRegular text-2xl text-white px-2 py-2"
+              className="font-DmMonoRegular text-xl text-white px-2 py-2"
               href={"/post"}
             >
               Post
             </Link>
             <Link
-              className="font-DmMonoRegular text-2xl text-white px-2 py-2"
+              className="font-DmMonoRegular text-xl text-white px-2 py-2"
               href={"/category"}
             >
               Categories
             </Link>
             <Link
-              className="font-DmMonoRegular text-2xl text-white px-2 py-2"
+              className="font-DmMonoRegular text-xl text-white px-2 py-2"
               href={"/about"}
             >
               About
@@ -91,7 +93,7 @@ const Navbar = () => {
             value={searchQuery}
             onChange={handleSearch}
             placeholder="Search..."
-            className="bg-transparent text-black py-2 px-10 flex-grow rounded-md border-none outline-none text-2xl"
+            className="bg-transparent text-black py-2 px-10 w-full flex-grow  rounded-md border-none outline-none text-xl"
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 handleSubmitSearch();
@@ -107,31 +109,6 @@ const Navbar = () => {
             <SlMagnifier color="white" />
           )}
         </button>
-      </div>
-
-      <div
-        className={`${
-          menuOpen ? "block" : "hidden"
-        } absolute top-20 left-0 w-full bg-black p-5 lg:hidden`}
-      >
-        <Link
-          className="font-DmMonoRegular text-2xl text-white px-2 py-2 block"
-          href={"/post"}
-        >
-          Post
-        </Link>
-        <Link
-          className="font-DmMonoRegular text-2xl text-white px-2 py-2 block"
-          href={"/category"}
-        >
-          Categories
-        </Link>
-        <Link
-          className="font-DmMonoRegular text-2xl text-white px-2 py-2 block"
-          href={"/about"}
-        >
-          About
-        </Link>
       </div>
 
       <Button title="SUBSCRIBE+" />

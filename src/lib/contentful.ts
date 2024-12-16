@@ -6,13 +6,3 @@ export const client = createClient({
   accessToken: "qPvZd4nlweW9WYjksH4pyMC_QhzJPG-0klcIOb_IIkQ",
   environment: "master",
 });
-
-// async function fetchContentTypes() {
-//   const space = await client.getSpace(`"${process.env.CONTENTFUL_SPACE_ID}"`);
-//   const environment = await space.getEnvironment("master");
-//   const contentTypes = await environment.getContentTypes();
-
-//   console.log(JSON.stringify(contentTypes.items, null, 2));
-// }
-
-// fetchContentTypes().catch(console.error);

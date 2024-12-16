@@ -19,15 +19,21 @@ const Button: React.FC<ButtonProps> = ({
   className = "",
   type = "button",
 }) => {
-  const commonStyles = `border-4 border-black transition-all text-black hover:text-white hover:bg-slate-700 hover:border-slate-700 rounded-full p-4 py-1 hover:py-2 flex items-center justify-center ${className} ${
+  const commonStyles = `border-4 border-black transition-all text-black hover:text-white hover:bg-slate-700 hover:border-slate-700 rounded-full p-4 py-1 flex items-center justify-center ${className} ${
     disabled ? "opacity-50 cursor-not-allowed" : ""
   }`;
 
-  return href ? (
-    <Link href={href}>
-      <a className={commonStyles}>{title}</a>
-    </Link>
-  ) : (
+  // If an href is provided, render a link
+  if (href) {
+    return (
+      <Link href={href} className={commonStyles}>
+        {title}
+      </Link>
+    );
+  }
+
+  // Otherwise, render a button
+  return (
     <button
       type={type}
       onClick={onClick}

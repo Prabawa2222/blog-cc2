@@ -30,8 +30,8 @@ const InterSemiBold = localFont({
 });
 
 const InterBold = localFont({
-  src: "../fonts/Inter-SemiBold.ttf",
-  variable: "--font-inter-semibold",
+  src: "../fonts/Inter-Bold.ttf",
+  variable: "--font-inter-bold",
 });
 
 export const metadata: Metadata = {
@@ -47,7 +47,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${DmMonoLight.variable} ${InterRegular.variable} ${DmMonoMedium.className} ${DmMonoRegular.variable} antialiased`}
+        className={`${DmMonoLight.variable} ${InterRegular.variable} ${DmMonoMedium.className} ${DmMonoRegular.variable} ${InterSemiBold.variable} ${InterBold.variable} antialiased`}
       >
         <Navbar />
         {children}

@@ -5,6 +5,7 @@ import Image from "next/image";
 
 import Link from "next/link";
 import { client } from "@/lib/contentful";
+import Button from "./Button";
 
 export default function HeroSection() {
   const [content, setContent] = useState<any | null>(null);
@@ -60,14 +61,18 @@ export default function HeroSection() {
   return (
     <section className="hero-section bg-gray-100 p-6 md:p-12">
       <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
-        <p className="text-sm uppercase font-semibold text-gray-500">
+        <p className="text-xl uppercase font-semibold text-gray-500">
           {categoryName}
         </p>
-        <h1 className="text-3xl md:text-5xl font-bold mt-2 text-gray-800">
+        <h1 className="text-3xl lg:text-4xl tracking-tight font-bold mt-2 text-gray-800">
           {title}
         </h1>
-        <p className="mt-4 text-lg text-gray-600">{excerpt}</p>
-        <p className="text-sm text-gray-400 mt-2">{publishDateFormatted}</p>
+        <p className="mt-4 text-lg text-gray-600 font-InterRegular">
+          {excerpt}
+        </p>
+        <p className="text-sm text-gray-400 mt-2 font-InterSemiBold">
+          {publishDateFormatted}
+        </p>
         {image && image[0]?.fields?.file?.url && (
           <div className="mt-6">
             <Image
@@ -79,12 +84,13 @@ export default function HeroSection() {
             />
           </div>
         )}
-        <Link
+
+        <Button
           href={`/post/${slug}`}
-          className="mt-6 inline-block px-6 py-3 bg-blue-600 text-white text-sm font-medium rounded-lg shadow-md hover:bg-blue-700"
-        >
-          Read More
-        </Link>
+          type="submit"
+          className="text-xl mt-10 bg-black text-white"
+          title="Read More"
+        />
       </div>
     </section>
   );
