@@ -5,6 +5,7 @@ import { useParams } from "next/navigation"; // Using useParams for Next.js app 
 import { client } from "@/lib/contentful"; // Your Contentful client
 import Link from "next/link";
 import Image from "next/image";
+import Loading from "@/components/Loading";
 
 interface Post {
   sys: {
@@ -40,12 +41,12 @@ interface Category {
 }
 
 const AllPostPage = () => {
-  const { page = "1" } = useParams(); // Get page number from the URL params
+  const { page = "1" } = useParams();
   const [posts, setPosts] = useState<Post[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]); // To hold categories
+  const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [totalPages, setTotalPages] = useState<number>(1); // Track total pages
+  const [totalPages, setTotalPages] = useState<number>(1);
 
   useEffect(() => {
     const fetchPostsAndCategories = async () => {
@@ -96,7 +97,7 @@ const AllPostPage = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   if (error) {

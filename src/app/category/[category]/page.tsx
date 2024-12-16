@@ -4,19 +4,28 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { client } from "@/lib/contentful";
 import Link from "next/link";
+import Loading from "@/components/Loading";
 
 interface CategoryPost {
   sys: {
     id: string;
   };
   fields: {
-    title: string;
-    slug: string;
+    title: string | null;
+    slug: string | null;
     category: {
       fields: {
-        name: string;
+        name: string | null;
       };
-    };
+    } | null;
+    image: {
+      fields: {
+        file: {
+          url: string;
+        };
+      };
+    } | null;
+    publishDate: string | null;
   };
 }
 
@@ -40,9 +49,12 @@ const CategoryPostsPage = () => {
         setError(null);
 
         const data = await client.getEntries({
-          content_type: "blogspot", // Fetch blog posts
+          content_type: "blogspot", // The content type for the blog posts
+          "fields.category.sys.contentType.sys.id": "category", // Specify the referenced content type
+          "fields.category.fields.name[match]": category, // Match the category name
         });
 
+        console.log(data);
         if (data.items.length === 0) {
           setError("No posts found for this category.");
         }
@@ -50,11 +62,15 @@ const CategoryPostsPage = () => {
         const formattedPosts: CategoryPost[] = data.items.map((entry) => ({
           sys: { id: entry.sys.id },
           fields: {
-            title: entry.fields.title,
-            slug: entry.fields.slug,
-            category: entry.fields.category,
+            title: entry.fields.title || "Untitled",
+            slug: entry.fields.slug || "no-slug",
+            category: entry.fields.category || null,
+            image: entry.fields.image || "Post Image",
+            publishDate: entry.fields.publishDat || null,
           },
         }));
+
+        console.log(formattedPosts);
 
         setPosts(formattedPosts);
       } catch (err) {
@@ -68,7 +84,7 @@ const CategoryPostsPage = () => {
     fetchPosts();
   }, [category]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading />;
   if (error) return <div>{error}</div>;
 
   return (
@@ -76,13 +92,31 @@ const CategoryPostsPage = () => {
       <h1 className="text-3xl font-bold text-gray-800">Posts in {category}</h1>
       <ul className="mt-6">
         {posts.map((post) => (
-          <Link
-            href={`/post/${post.fields.slug}`}
+          <li
             key={post.sys.id}
-            className="text-xl text-gray-700 mb-4"
+            className="mb-4 p-4 bg-white shadow-sm rounded-lg flex items-start"
           >
-            {post.fields.title}
-          </Link>
+            {post.fields.image?.fields?.file?.url && (
+              <img
+                src={`https:${post.fields.image.fields.file.url}`}
+                alt={post.fields.title || "Post image"}
+                className="w-20 h-20 object-cover rounded mr-4"
+              />
+            )}
+            <div>
+              <Link
+                href={`/post/${post.fields.slug}`}
+                className="text-xl text-blue-600 hover:underline"
+              >
+                {post.fields.title}
+              </Link>
+              <p className="text-gray-500 text-sm">
+                {post.fields.publishDate
+                  ? new Date(post.fields.publishDate).toLocaleDateString()
+                  : "Unknown date"}
+              </p>
+            </div>
+          </li>
         ))}
       </ul>
     </div>

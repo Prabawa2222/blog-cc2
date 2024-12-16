@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { SlMagnifier } from "react-icons/sl";
+import { CgClose } from "react-icons/cg";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -100,7 +101,11 @@ const Navbar = () => {
         )}
 
         <button onClick={toggleSearchBar} className="ml-5">
-          <SlMagnifier color={`${searchVisible ? "black" : "white"}`} />
+          {searchVisible ? (
+            <CgClose color="black" />
+          ) : (
+            <SlMagnifier color="white" />
+          )}
         </button>
       </div>
 

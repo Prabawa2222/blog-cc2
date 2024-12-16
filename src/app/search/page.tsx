@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation"; // Import from next/navigation
+import { useSearchParams } from "next/navigation";
 import { client } from "@/lib/contentful";
+import Loading from "@/components/Loading";
 
 interface Post {
   sys: { id: string };
@@ -15,7 +16,7 @@ interface Post {
 
 const SearchPage = () => {
   const searchParams = useSearchParams();
-  const query = searchParams.get("q") || ""; // Get the search query from URL
+  const query = searchParams.get("q") || "";
 
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -32,7 +33,22 @@ const SearchPage = () => {
           });
 
           if (data.items.length > 0) {
-            setPosts(data.items);
+            // Transform data.items to match the Post type
+            const transformedPosts: Post[] = data.items.map((item: any) => ({
+              sys: item.sys,
+              fields: {
+                title: item.fields.title,
+                slug: item.fields.slug,
+                image: {
+                  fields: {
+                    file: {
+                      url: item.fields.image.fields.file.url,
+                    },
+                  },
+                },
+              },
+            }));
+            setPosts(transformedPosts);
           } else {
             setError(`No results found for "${query}"`);
           }
@@ -49,7 +65,7 @@ const SearchPage = () => {
     }
   }, [query]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading />;
   if (error) return <div>{error}</div>;
 
   return (

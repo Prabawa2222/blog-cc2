@@ -1,5 +1,6 @@
 "use client";
 
+import Loading from "@/components/Loading";
 import { client } from "@/lib/contentful";
 import { ListCategory, TypeBlogPostSkeleton } from "@/types/contentful.types";
 import Link from "next/link";
@@ -44,7 +45,7 @@ const CategoryPage = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   if (error) {

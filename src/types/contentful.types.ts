@@ -40,6 +40,7 @@ export interface ListCategory {
   };
   fields: {
     name: string;
+    slug: string;
   };
 }
 

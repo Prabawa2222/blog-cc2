@@ -32,7 +32,18 @@ export default function HeroSection() {
   }, []);
 
   if (!content) {
-    return <div>Loading...</div>;
+    return (
+      <section className="hero-section bg-gray-100 p-6 md:p-12">
+        <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
+          <div className="skeleton-category w-24 h-6 bg-gray-300 rounded animate-pulse"></div>
+          <div className="skeleton-title w-64 md:w-96 h-10 bg-gray-300 rounded mt-4 animate-pulse"></div>
+          <div className="skeleton-excerpt w-full md:w-3/4 h-6 bg-gray-300 rounded mt-6 animate-pulse"></div>
+          <div className="skeleton-date w-32 h-4 bg-gray-300 rounded mt-4 animate-pulse"></div>
+          <div className="skeleton-image w-full md:w-3/4 h-56 bg-gray-300 rounded-lg mt-6 animate-pulse"></div>
+          <div className="skeleton-button w-32 h-10 bg-gray-300 rounded mt-6 animate-pulse"></div>
+        </div>
+      </section>
+    );
   }
 
   const { title, excerpt, image, category, publishDate, slug } = content;
