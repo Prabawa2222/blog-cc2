@@ -17,14 +17,23 @@ export interface BlogPostFields extends EntrySkeletonType {
 }
 
 export interface BlogPostAsset {
-  sys: {};
+  sys: object;
   fields: {
     file: {
       url: string;
-      details?: any;
+      details?: unknown;
       filename?: string;
       contentType?: string;
     };
+  };
+}
+
+export interface Post {
+  sys: { id: string };
+  fields: {
+    title: string;
+    slug: string;
+    image: { fields: { file: { url: string } } };
   };
 }
 

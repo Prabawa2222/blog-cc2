@@ -1,15 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import Loading from "@/components/Loading";
 import { client } from "@/lib/contentful";
-import { ListCategory, TypeBlogPostSkeleton } from "@/types/contentful.types";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { DiReact } from "react-icons/di";
 import { SkeletonCard } from "./Skeleton";
 
 const CatSection = ({ limit }: any) => {
-  const [categories, setCategories] = useState<ListCategory[]>([]);
+  const [categories, setCategories] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -21,8 +20,8 @@ const CatSection = ({ limit }: any) => {
           select: ["fields.category"],
           limit: limit,
         });
-        console.log(data);
-        const categoryList: ListCategory[] = [];
+        //console.log(data);
+        const categoryList: any[] = [];
 
         data.items.forEach((item: any) => {
           const category = item.fields.category;

@@ -1,9 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-
-import Link from "next/link";
 import { client } from "@/lib/contentful";
 import Button from "./Button";
 
@@ -17,7 +16,7 @@ export default function HeroSection() {
         order: ["-fields.publishDate"] as ["-fields.publishDate"],
         limit: 1,
       });
-      console.log(data.items);
+      //console.log(data.items);
       if (data.items.length > 0) {
         setContent(data.items[0].fields);
       } else {

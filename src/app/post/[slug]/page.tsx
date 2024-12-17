@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { client } from "@/lib/contentful";
@@ -11,10 +12,11 @@ import {
   FaLinkedinIn,
   FaPinterestP,
 } from "react-icons/fa";
+import Image from "next/image";
 
 const PostDetailPage = () => {
   const params = useParams<{ slug: string }>();
-  const [post, setPost] = useState<any | null>(null);
+  const [post, setPost] = useState<any>(null);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -27,7 +29,7 @@ const PostDetailPage = () => {
         if (data.items.length > 0) {
           setPost(data.items[0].fields);
         } else {
-          console.log("Post not found.");
+          //console.log("Post not found.");
         }
       } catch (error) {
         console.error("Error fetching post:", error);
@@ -63,9 +65,11 @@ const PostDetailPage = () => {
         const imageUrl = `https:${file.url}`;
         return (
           <div className="my-6">
-            <img
+            <Image
               src={imageUrl}
               alt={title}
+              width={100}
+              height={100}
               className="rounded-lg shadow-lg w-full h-auto"
             />
           </div>
@@ -107,8 +111,10 @@ const PostDetailPage = () => {
         <p className="text-sm text-gray-500 mt-2">{publishDateFormatted}</p>
         {image && image[0]?.fields?.file?.url && (
           <div className="mt-6">
-            <img
+            <Image
               src={`https:${image[0].fields.file.url}`}
+              width={100}
+              height={100}
               alt={title}
               className="rounded-lg shadow-lg w-full h-auto"
             />

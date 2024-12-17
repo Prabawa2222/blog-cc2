@@ -1,7 +1,6 @@
 "use client";
 
 import CatSection from "@/components/CatSection";
-import React, { useEffect, useState } from "react";
 
 const CategoryPage = () => {
   return (

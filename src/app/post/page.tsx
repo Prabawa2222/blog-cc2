@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -5,7 +6,6 @@ import { useParams } from "next/navigation";
 import { client } from "@/lib/contentful";
 import Link from "next/link";
 import Image from "next/image";
-import dynamic from "next/dynamic";
 
 import {
   TypeBlogPost,

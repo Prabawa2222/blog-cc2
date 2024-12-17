@@ -1,13 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { client } from "@/lib/contentful";
 import Link from "next/link";
-import Loading from "@/components/Loading";
 import { SkeletonAllPost } from "@/components/Skeleton";
 import Image from "next/image";
-import { CategoryPost } from "@/types/contentful.types";
 
 const CategoryPostsPage = () => {
   const { category } = useParams();
@@ -34,7 +33,7 @@ const CategoryPostsPage = () => {
           "fields.category.fields.name[match]": category,
         });
 
-        console.log(data);
+        //console.log(data);
         if (data.items.length === 0) {
           setError("No posts found for this category.");
         }
@@ -50,7 +49,7 @@ const CategoryPostsPage = () => {
           },
         }));
 
-        console.log(formattedPosts);
+        //console.log(formattedPosts);
 
         setPosts(formattedPosts);
       } catch (err) {

@@ -4,11 +4,10 @@ import Button from "@/components/Button";
 import CatSection from "@/components/CatSection";
 import FeatSection from "@/components/FeatSection";
 import HeroSection from "@/components/HeroSection";
-import Image from "next/image";
 import Link from "next/link";
 import { FaArrowRightLong } from "react-icons/fa6";
 
-const Home = async () => {
+const Home = () => {
   return (
     <div className="min-h-screen flex flex-col items-center">
       <div className="lg:mt-48 mt-24">

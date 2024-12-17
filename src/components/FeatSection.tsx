@@ -1,8 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { client } from "@/lib/contentful";
 import Button from "./Button";
 import { SkeletonPostsCard } from "./Skeleton";

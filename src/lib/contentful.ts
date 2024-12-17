@@ -1,4 +1,3 @@
-import { BlogPostFields } from "@/types/contentful.types";
 import { createClient } from "contentful";
 
 export const client = createClient({

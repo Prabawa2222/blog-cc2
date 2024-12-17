@@ -3,25 +3,23 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { client } from "@/lib/contentful";
-import Loading from "@/components/Loading";
 import { SkeletonAllPost } from "@/components/Skeleton";
-
-interface Post {
-  sys: { id: string };
-  fields: {
-    title: string;
-    slug: string;
-    image: { fields: { file: { url: string } } };
-  };
-}
+import { Post } from "@/types/contentful.types";
 
 const SearchPage = () => {
-  const searchParams = useSearchParams();
-  const query = searchParams.get("q") || "";
-
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [query, setQuery] = useState<string>("");
+
+  // This will make sure useSearchParams is only called on the client side
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const urlParams = new URLSearchParams(window.location.search);
+      const queryParam = urlParams.get("q") || "";
+      setQuery(queryParam);
+    }
+  }, []);
 
   useEffect(() => {
     if (query) {
@@ -33,7 +31,6 @@ const SearchPage = () => {
             limit: 10,
           });
 
-          console.log(data);
           if (data.items.length > 0) {
             const transformedPosts: Post[] = data.items.map((item: any) => ({
               sys: item.sys,
@@ -49,7 +46,6 @@ const SearchPage = () => {
                 },
               },
             }));
-            console.log(transformedPosts);
             setPosts(transformedPosts);
           } else {
             setError(`No results found for "${query}"`);
