@@ -12,11 +12,11 @@ export default function Footer() {
             width={0}
             height={0}
             alt="Company Logo"
-            className="w-48 h-24 mr-4"
+            className="lg:w-48 lg:h-24 w-64 h-16 mr-4"
             loading="lazy"
           />
         </div>
-        <div className="mt-4 w-1/3 flex flex-row items-center justify-center space-y-2 md:space-y-0 md:space-x-6">
+        <div className="mt-4 lg:w-1/3 h-16 w-full flex lg:flex-row flex-col items-center justify-center space-y-2 md:space-y-0 md:space-x-6">
           <a href="/support" className="hover:underline">
             Company Support
           </a>

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { client } from "@/lib/contentful";
 import Loading from "@/components/Loading";
+import { SkeletonAllPost } from "@/components/Skeleton";
 
 interface Post {
   sys: { id: string };
@@ -32,8 +33,8 @@ const SearchPage = () => {
             limit: 10,
           });
 
+          console.log(data);
           if (data.items.length > 0) {
-            // Transform data.items to match the Post type
             const transformedPosts: Post[] = data.items.map((item: any) => ({
               sys: item.sys,
               fields: {
@@ -42,12 +43,13 @@ const SearchPage = () => {
                 image: {
                   fields: {
                     file: {
-                      url: item.fields.image.fields.file.url,
+                      url: item.fields.image?.[0]?.fields.file.url,
                     },
                   },
                 },
               },
             }));
+            console.log(transformedPosts);
             setPosts(transformedPosts);
           } else {
             setError(`No results found for "${query}"`);
@@ -65,28 +67,30 @@ const SearchPage = () => {
     }
   }, [query]);
 
-  if (loading) return <Loading />;
+  if (loading) return <SkeletonAllPost />;
   if (error) return <div>{error}</div>;
 
   return (
-    <div className="max-w-6xl mx-auto p-6 min-h-screen">
-      <h1 className="text-3xl font-bold text-gray-800">Search Results</h1>
-      {posts.length === 0 ? (
-        <p>No results found for "{query}"</p>
-      ) : (
-        <ul>
-          {posts.map((post) => (
-            <li key={post.sys.id}>
-              <a
-                href={`/post/${post.fields.slug}`}
-                className="text-lg text-blue-600"
-              >
-                {post.fields.title}
-              </a>
-            </li>
-          ))}
-        </ul>
-      )}
+    <div className="max-w-6xl mx-auto p-6 min-h-screen ">
+      <div className="lg:mt-48 mt-24">
+        <h1 className="text-3xl font-bold text-gray-800">Search Results</h1>
+        {posts.length === 0 ? (
+          <p>No results found for "{query}"</p>
+        ) : (
+          <ul>
+            {posts.map((post) => (
+              <li key={post.sys.id}>
+                <a
+                  href={`/post/${post.fields.slug}`}
+                  className="text-lg text-blue-600"
+                >
+                  {post.fields.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 };

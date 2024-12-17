@@ -23,7 +23,6 @@ const Button: React.FC<ButtonProps> = ({
     disabled ? "opacity-50 cursor-not-allowed" : ""
   }`;
 
-  // If an href is provided, render a link
   if (href) {
     return (
       <Link href={href} className={commonStyles}>
@@ -32,7 +31,6 @@ const Button: React.FC<ButtonProps> = ({
     );
   }
 
-  // Otherwise, render a button
   return (
     <button
       type={type}

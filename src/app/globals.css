@@ -24,4 +24,5 @@ body {
 html {
   font-family: var(--font-dmmono-light), var(--font-inter-regular), Arial,
     Helvetica, sans-serif;
+  scroll-behavior: smooth;
 }

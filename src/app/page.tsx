@@ -15,7 +15,7 @@ const Home = async () => {
         <HeroSection />
       </div>
       <hr className="my-16 border border-gray-100 w-full" />
-      <h1 className="text-xl tracking-tighter">
+      <h1 className="text-xl lg:w-full w-96 text-center tracking-tighter">
         Subscribe to our newsletter for daily industry insights
       </h1>
       <div className="w-full flex flex-row items-center justify-center my-5 gap-5">

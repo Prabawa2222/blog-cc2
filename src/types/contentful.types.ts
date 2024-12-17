@@ -6,12 +6,6 @@ import {
   LocaleCode,
 } from "contentful";
 
-export interface CategoryFields extends EntrySkeletonType {
-  name: EntryFieldTypes.Symbol;
-  slug?: EntryFieldTypes.Symbol;
-  description?: EntryFieldTypes.Symbol;
-}
-
 export interface BlogPostFields extends EntrySkeletonType {
   title: EntryFieldTypes.Symbol;
   slug: EntryFieldTypes.Symbol;
@@ -34,13 +28,34 @@ export interface BlogPostAsset {
   };
 }
 
-export interface ListCategory {
+export interface CategoryFields extends EntrySkeletonType {
+  name: EntryFieldTypes.Symbol;
+  slug?: EntryFieldTypes.Symbol;
+  description?: EntryFieldTypes.Symbol;
+}
+
+export type ListCategory = Entry<CategoryFields>;
+
+export interface CategoryPost {
   sys: {
     id: string;
   };
   fields: {
-    name: string;
-    slug: string;
+    title: string | null;
+    slug: string | null;
+    category: {
+      fields: {
+        name: string | null;
+      };
+    } | null;
+    image: {
+      fields: {
+        file: {
+          url: string;
+        };
+      };
+    } | null;
+    publishDate: string | null;
   };
 }
 

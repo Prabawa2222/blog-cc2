@@ -23,7 +23,7 @@ export const SkeletonAllPost = () => {
   return (
     <>
       {[...Array(5)].map((_, index) => (
-        <li key={index} className="text-xl text-gray-700 mb-4">
+        <li key={index} className="text-xl text-gray-700 mb-4 list-none">
           <div className="flex items-center animate-pulse">
             <div className="w-32 h-32 mr-6 bg-gray-300 rounded-lg" />
             <div className="flex-1">
