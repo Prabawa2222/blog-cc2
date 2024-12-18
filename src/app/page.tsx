@@ -9,7 +9,7 @@ import { FaArrowRightLong } from "react-icons/fa6";
 
 const Home = () => {
   return (
-    <div className="min-h-screen flex flex-col items-center">
+    <div className="min-h-screen bg-white flex flex-col items-center">
       <div className="lg:mt-48 mt-24">
         <HeroSection />
       </div>

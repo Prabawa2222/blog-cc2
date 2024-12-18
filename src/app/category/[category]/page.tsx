@@ -81,7 +81,7 @@ const CategoryPostsPage = () => {
     );
 
   return (
-    <div className="mx-auto lg:pt-48 pt-32 px-12 flex flex-col items-center min-h-screen relative">
+    <div className="mx-auto lg:pt-48 bg-white pt-32 px-12 flex flex-col items-center min-h-screen relative">
       <h1 className="lg:text-3xl text-xl  font-bold text-gray-800 border-2 border-black rounded-full py-1 px-4 w-fit ">
         Posts in {category}
       </h1>

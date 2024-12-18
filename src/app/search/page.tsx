@@ -67,7 +67,7 @@ const SearchPage = () => {
   if (error) return <div>{error}</div>;
 
   return (
-    <div className="max-w-6xl mx-auto p-6 min-h-screen ">
+    <div className="max-w-6xl bg-white mx-auto p-6 min-h-screen ">
       <div className="lg:mt-48 mt-24">
         <h1 className="text-3xl font-bold text-gray-800">Search Results</h1>
         {posts.length === 0 ? (

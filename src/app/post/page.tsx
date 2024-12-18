@@ -85,7 +85,7 @@ const AllPostPage = () => {
   }
 
   return (
-    <div className="mx-auto px-4 lg:px-12 lg:py-48 pt-32 flex flex-col lg:flex-row items-center lg:items-start justify-between relative">
+    <div className="mx-auto px-4 bg-white lg:px-12 lg:py-48 pt-32 flex flex-col lg:flex-row items-center lg:items-start justify-between relative">
       <div className="lg:w-2/3 px-4 lg:pr-2 flex-1 flex flex-col lg:items-start items-center">
         <h1 className="text-3xl font-bold text-gray-800 border-2 border-black rounded-full py-1 px-4 w-fit ">
           All Posts

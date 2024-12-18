@@ -6,7 +6,7 @@ import { FaLinkedin, FaTwitter, FaGithub } from "react-icons/fa";
 
 const AboutPage = () => {
   return (
-    <div className="max-w-6xl mx-auto px-4 lg:px-12 lg:py-48 py-32 min-h-screen">
+    <div className="max-w-6xl mx-auto bg-white px-4 lg:px-12 lg:py-48 py-32 min-h-screen">
       <section className="text-center mb-12">
         <h1 className="text-4xl font-bold text-gray-800 mb-6">
           About Now_Think..
